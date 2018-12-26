@@ -13,6 +13,7 @@ class App extends Component {
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Fib Calculator version 2</h1>
+            <p>Insert a number, click on submit and then refresh the page to visualize your results.</p>
             <Link to="/">Home</Link>
             <Link to="/otherpage">Other Page</Link>
           </header>
