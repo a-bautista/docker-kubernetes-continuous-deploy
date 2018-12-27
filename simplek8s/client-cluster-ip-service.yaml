@@ -1,0 +1,14 @@
+# cluster IP services are used to expose the set of pods to the other objects in the cluster
+apiVersion: v1
+kind: Service
+metadata:
+    name: client-cluster-ip-service
+spec:
+    type: ClusterIP
+    selector: 
+        component: web
+    ports:
+        # after the -, everything should be spaced
+        - port: 3000
+          targetPort: 3000
+

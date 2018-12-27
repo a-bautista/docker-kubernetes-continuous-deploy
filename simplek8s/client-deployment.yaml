@@ -1,0 +1,24 @@
+# Every time you set up this file with kubectl, it downloads the latest multi-images-client from the Dockerhub.
+# Kubernetes then uses this latest image to run it in its virtual machine. 
+# This file is used instead of the client-pod.yaml.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  # number of pods
+  replicas: 3
+  selector:
+    matchLabels:
+      component: web
+  # here goes the configuration that goes for every single pod   
+  template:
+    metadata:
+      labels:
+        component: web
+    spec:
+      containers:
+        - name: client
+          image: alexbr9007/multi-images-client
+          ports:
+            - containerPort: 3000
