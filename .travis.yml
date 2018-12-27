@@ -17,7 +17,7 @@ before_install:
   - gcloud config set project ancient-booster-136323
   - gcloud config set compute/zone us-central1
   - gcloud container clusters get-credentials kubernetes-production-udemy
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker build -t alexbr9007/react-test -f ./client/Dockerfile.dev ./client
 
 script:
