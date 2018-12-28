@@ -1,0 +1,15 @@
+# this file will not be used 
+apiVersion: v1
+kind: Service
+metadata: 
+    name: client-node-port
+spec:
+    type: NodePort
+    ports:
+       - port: 3050
+        # the port 3000 is identical to the port in containerPort 3000 in client-pod.yaml
+         targetPort: 3000
+        # the most important port because it connects the browser with the contained image
+         nodePort: 31515
+    selector:
+        component: web

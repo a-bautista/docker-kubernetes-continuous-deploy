@@ -1,0 +1,13 @@
+# This file is not used anymore because it was used for testing purposes.
+apiVersion: v1
+kind: Pod
+metadata:
+    name: client-pod
+    labels: 
+        component: web
+spec:
+    containers:
+      - name: client
+        image: alexbr9007/multi-images-worker
+        ports:
+            - containerPort: 3000
