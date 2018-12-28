@@ -1,38 +1,31 @@
-# .travis-git-aws.yml
-# .travis file used to automatically setup the images from Github to AWS
+# .travis-docker-kubernetes.yml
+# .travis file used to update from Github to Google cloud
 sudo: required
 services:
   - docker
-
+env:
+  global:
+      # get the latest commit so you can have the latest image
+    - SHA=$(git rev-parse HEAD)
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
-  # dockerid/name_of_your_image
+  - openssl aes-256-cbc -K $encrypted_0c35eebf403c_key -iv $encrypted_0c35eebf403c_iv -in service-account.json.enc -out service-account.json -d
+  # - openssl aes-256-cbc -K $encrypted_0c35eebf403c_key -iv $encrypted_0c35eebf403c_iv -in service-account.json.enc -out service-account.json -d
+  - curl https://sdk.cloud.google.com | bash > /dev/null;
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud components update kubectl
+  - gcloud auth activate-service-account --key-file service-account.json
+  - gcloud config set project ancient-booster-136323
+  - gcloud config set compute/zone us-central1
+  - gcloud container clusters get-credentials kubernetes-production-udemy
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker build -t alexbr9007/react-test -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run alexbr9007/react-test npm test -- --coverage
 
-after_success:
-  - docker build -t alexbr9007/multi-images-client ./client
-  - docker build -t alexbr9007/multi-images-nginx ./nginx
-  - docker build -t alexbr9007/multi-images-server ./server
-  - docker build -t alexbr9007/multi-images-worker ./worker
-  # Log in to the docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # Take those images and push them to docker hub
-  - docker push alexbr9007/multi-images-client
-  - docker push alexbr9007/multi-images-nginx
-  - docker push alexbr9007/multi-images-server
-  - docker push alexbr9007/multi-images-worker
-
 deploy:
-  provider: elasticbeanstalk
-  region: us-west-2
-  app: multi-docker-dockerhub-ci
-  env: MultiDockerDockerhubCi-env
-  bucket_name: elasticbeanstalk-us-west-2-401387916447
-  bucket_path: multi-docker
+  provider: script
+  script: bash ./deploy.sh
   on:
     branch: master
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: $AWS_SECRET_KEY
