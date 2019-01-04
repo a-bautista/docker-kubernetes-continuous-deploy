@@ -11,10 +11,10 @@ Kubernetes is a system for running many different containers over multiple machi
                                              |      | Container |<---------->|  
                                              |       -----------             | 
     ----------           ---------------     |       -----------             |
-   | Request  | ------> | Load balancer | ------->  |   Node    |         --------
-    ----------           ---------------     |      | Container |<------>| Master |
-                                           |      | Container |         --------
-                                           |       -----------             |
+    | Request  | ------> | Load balancer | ------->  |   Node    |         --------
+    ----------           ---------------     |       | Container |<------>| Master |
+                                           |         | Container |         --------
+                                           |          -----------             |
                                            |        -----------            |
                                            |       |   Node    |           |
                                             -----> | Container |<--------->|
@@ -48,4 +48,33 @@ They set up the networking in a Kubernetes cluster and they are classified in Cl
 
 ## How do we start using Kubernetes?                 
 
-We need to install minikube which creates a virtual machine in your computer 
+We need to install minikube which creates a virtual machine in your computer. You can use the following commands in Linux to install minikube.
+
+First install kubectl with `curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo cp kubectl /usr/local/bin/ && rm kubectl`
+
+Also, make sure you have installed virtualbox:
+
+`wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -`
+ 
+`wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -`
+
+`sudo apt-get update`
+`sudo apt-get install virtualbox`
+
+Then install minikube:
+
+`curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && sudo install minikube-linux-amd64 /usr/local/bin/minikube`
+
+Lastly, start minikube with `minikube start`
+
+You can delete the current minikube with `minikube delete`
+
+ 
+
+
+`kubectl apply -f <client-pod>.yaml`
+`kubectl get pods`
+`kubectl describe <object-type> <object-name>`
+`kubectl delete pods <pod-name> --grace-period=0 --force`
+`kubectl cluster-info`
+`kubectl delete -f <name-of-file>`
