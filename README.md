@@ -1,8 +1,6 @@
 This project contains the basic notes about Kubernetes such as what is the reason for use it, what it is and how to use it in a development and production environment.
 
-### Table of contents
-
-## What is Kubernetes?
+## 1. What is Kubernetes?
 
 Kubernetes is a system for running many different containers over multiple machines and it is mainly used for applications that need scalability, that is, applications that need to be deployed to the cloud (Google Cloud, AWS, Azure) are more likely to be running in several machines but they need some sort of <b>orchestration</b> to know how many instances will be required, how many resources will be needed and which services should be working.
 
@@ -24,9 +22,9 @@ Kubernetes is a system for running many different containers over multiple machi
 
 In the diagram from above, the master (Kubernetes) controls what each node does. Nodes + master make up a <b>cluster</b>.
 
-## Objects in Kubernetes
+## 2. Objects in Kubernetes
 
-Kubernetes works with 4 types of objects which are ReplicaController, Pods, StatefulSet and Services. All these objects have different purposes such as running containers, set up of networks, monitoring of containers and so on. 
+Kubernetes works with 4 types of objects which are ReplicaController, Pods, StatefulSet and Services. All these objects have different purposes such as running containers, set up of networks and monitoring of containers for just to mention a few.
 
 ### Pods
 
@@ -46,7 +44,7 @@ They set up the networking in a Kubernetes cluster and they are classified in Cl
 4. Ingress routing: It sets the rules to get the traffic services. 
 
 
-## How do we start using Kubernetes?                 
+## 3. How do we start using Kubernetes?                 
 
 We need to install minikube which creates a virtual machine in your computer. You can use the following commands in Linux to install minikube.
 
@@ -69,13 +67,16 @@ Lastly, start minikube with `minikube start`
 
 You can delete the current minikube with `minikube delete`
 
- 
-
+ ## 4. Additional commands to know
 
 `kubectl apply -f <client-pod>.yaml`
 
 `kubectl get pods`
+
 `kubectl describe <object-type> <object-name>`
+
 `kubectl delete pods <pod-name> --grace-period=0 --force`
+
 `kubectl cluster-info`
+
 `kubectl delete -f <name-of-file>`
