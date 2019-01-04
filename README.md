@@ -13,14 +13,14 @@ Kubernetes is a system for running many different containers over multiple machi
     ----------           ---------------     |       -----------             |
     | Request  | ------> | Load balancer | ------->  |   Node    |         --------
     ----------           ---------------     |       | Container |<------>| Master |
-                                           |         | Container |         --------
-                                           |          -----------             |
-                                           |        -----------            |
-                                           |       |   Node    |           |
-                                            -----> | Container |<--------->|
-                                                   | Container |
-                                                   | Container |
-                                                    -----------
+                                             |       | Container |         --------
+                                             |        -----------            |
+                                             |        -----------            |
+                                             |       |   Node    |           |
+                                              -----> | Container |<--------->|
+                                                     | Container |
+                                                     | Container |
+                                                      -----------
 
 In the diagram from above, the master (Kubernetes) controls what each node does. Nodes + master make up a <b>cluster</b>.
 
@@ -38,12 +38,12 @@ When you want to configure a container you must go through a deployment and not 
 
 ### Services
 
-They set up the networking in a Kubernetes cluster and they are classified in ClusterIP, NodePort, LoadBalancer and the Ingress. 
+They set up the networking in a Kubernetes cluster and they are classified in ClusterIP, NodePort, LoadBalancer and Ingress routing. 
 
 1. ClusterIP: It exposes a set of Pods to other objects in the cluster.
 2. NodePort: It exposes the containers to the world.
 3. LoadBalancer
-4. Ingress
+4. Ingress routing: It sets the rules to get the traffic services. 
 
 
 ## How do we start using Kubernetes?                 
@@ -73,6 +73,7 @@ You can delete the current minikube with `minikube delete`
 
 
 `kubectl apply -f <client-pod>.yaml`
+
 `kubectl get pods`
 `kubectl describe <object-type> <object-name>`
 `kubectl delete pods <pod-name> --grace-period=0 --force`
